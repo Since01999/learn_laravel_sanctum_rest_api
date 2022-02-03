@@ -1,0 +1,130 @@
+.make a laravel project
+.make an api route in routes->api.php
+.check the route by putting /api with the base url
+.api is a prefix you can change it in app\providers\routeservice provider... you 
+can also remove it.
+
+.but if web and api have same routes then only web route will run.so remain the prefix api.
+
+
+now make controller with --resource and model ,migration and seeder
+
+in the migration write the columms name you want to add in the student
+
+in the seeder use Faker\Factory as Faker 
+
+use it in the seeder to add fake data by using
+
+$faker = Faker::create();
+
+now use foreach with range in it ...the range is for adding the rows in the database
+
+
+just like this 
+
+
+public function run()
+    {
+        $faker = Faker::create();
+        foreach(range(0,10) as $value){
+           DB::table('students')->insert( [
+                'name' => $faker->name(),
+                'city' => $faker->city(),
+                'fees' => $faker->randomFloat(2)
+           ]);
+        }
+    }
+
+
+after this php artisan db:seed
+
+now go to controller 
+index
+
+return student::all();
+
+
+after this make route for it ..and call it with the "api" prefix
+for getting all data in the apis
+
+similarly add data using the postmen 
+
+first manage the header with  "Accept" and "Application/json"
+
+
+and validate the data in the controller 
+
+now after validation 
+
+send the data by Student::create($request->All());
+
+and also configure protected $fillable in the Model with all the columns name in an array.
+
+
+in the postmen..set the header key : accept  and value :application/json
+
+
+now in order to update the student data... use the update function in the controller by
+ passing the id in it 
+
+and update ($request->all()) 
+
+method will be used
+
+
+similarly defined its route 
+
+
+and for delete use the delete() as written in the code
+
+
+now we will make a search api
+
+search api will search city by using the where condition with the student table 
+
+
+now Protected and Partially Protected API
+
+
+because we dont want every one to access our API and modify it 
+
+so we will use laravel sanctum which is predefined 
+and we only need one thing in the App\http\kernal   .. here we will
+uncomment the laravel api code in the API Array.
+
+
+
+Now we will go to the api route 
+
+
+and here we will paste the laravel sanctum Route from the laravel sanctum site.
+
+
+
+now comment all the public route and add one route with the sanctum 
+
+
+and while using it in the postmen ... also define  in header
+
+
+Key : Accept    Value: application/json
+
+
+in result you will get this as it looks better
+
+
+{
+    "message": "Unauthenticated."
+}
+
+after this make proper registation , login and logout for a protected api
+
+
+
+
+
+
+
+
+
+
